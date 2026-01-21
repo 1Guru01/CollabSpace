@@ -4,12 +4,15 @@ const UserSchema = new mongoose.Schema(
   {
     name: { type: String },
     email: { type: String, required: true, unique: true },
+    passwordHash: { type: String },          // NEW
+    emailVerified: { type: Boolean, default: false }, // NEW
+
+    provider: { type: String, required: true },
+    providerId: { type: String },
+
     picture: { type: String },
-    provider: { type: String, required: true }, // google, credentials
-    providerId: { type: String, required: true }, // Google user ID
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);
-    
