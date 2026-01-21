@@ -1,0 +1,16 @@
+import { NextResponse } from "next/server";
+
+export function proxy(req) {
+  const accessToken = req.cookies.get("access_token")?.value;
+
+  // protect /dashboard and subroutes
+  if (!accessToken) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/dashboard/:path*"],
+};
